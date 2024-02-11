@@ -11,6 +11,7 @@
         android:name="com.gap.tinkoffeducation.FavouriteFragment"
         android:id="@+id/main_fragment_container"
         android:layout_width="match_parent"
+        android:backgroundTint="@color/white"
         android:layout_height="match_parent"/>
 
     <Button
