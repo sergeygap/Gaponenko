@@ -16,6 +16,8 @@ class FavouriteFragment : Fragment() {
         ViewModelProvider(this)[FavouriteViewModel::class.java]
     }
 
+    private var clickCounter = 0
+
     private val adapter: FavouriteAdapter by lazy {
         FavouriteAdapter(requireContext())
     }
@@ -56,11 +58,31 @@ class FavouriteFragment : Fragment() {
         viewModel.filmsLD.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+        viewModel.filmsStateLD.observe(viewLifecycleOwner) {
+            if (!it) {
+                binding.rvFavourite.visibility = View.INVISIBLE
+                binding.llNoInternet.visibility = View.VISIBLE
+                binding.swipeToRefreshLayout.visibility = View.INVISIBLE
+                clickCounter = 0
+            } else {
+                binding.rvFavourite.visibility = View.VISIBLE
+                binding.llNoInternet.visibility = View.GONE
+                binding.swipeToRefreshLayout.visibility = View.VISIBLE
+                binding.btnRetryInternet.setOnClickListener {
+                    clickCounter++
+                    if (clickCounter == 3) {
+                        viewModel.updateFilmsList()
+                    } else {
+                        viewModel.getListFilms()
+                    }
+                }
+            }
+        }
     }
 
     private fun workWithSwipeToRefresh() {
         binding.swipeToRefreshLayout.setOnRefreshListener {
-            viewModel.updateNewsList()
+            viewModel.updateFilmsList()
             binding.swipeToRefreshLayout.isRefreshing = false
         }
     }

@@ -19,21 +19,31 @@ class FavouriteViewModel(application: Application) : AndroidViewModel(applicatio
 
     val filmsLD: LiveData<List<Films>>
         get() = _filmsLD
+    private val _filmsStateLD = MutableLiveData<Boolean>()
+
+    val filmsStateLD: LiveData<Boolean>
+        get() = _filmsStateLD
 
     fun getListFilms() {
         viewModelScope.launch {
-            val loadedNewsList = filmsLD.value?.toMutableList()
-            if (loadedNewsList != null) {
-                loadedNewsList.addAll(getListUseCase(page))
-                _filmsLD.postValue(loadedNewsList)
+            if (getListUseCase(page).isNotEmpty()) {
+                _filmsStateLD.postValue(true)
+                val loadedNewsList = filmsLD.value?.toMutableList()
+                if (loadedNewsList != null) {
+                    loadedNewsList.addAll(getListUseCase(page))
+                    _filmsLD.postValue(loadedNewsList)
+                } else {
+                    _filmsLD.postValue(getListUseCase(page))
+                }
+                page++
             } else {
-                _filmsLD.postValue(getListUseCase(page))
+                _filmsStateLD.postValue(false)
             }
-            page++
+
         }
     }
 
-    fun updateNewsList() {
+    fun updateFilmsList() {
         page = 1
         _filmsLD.value = emptyList()
         getListFilms()
