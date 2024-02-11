@@ -2,4 +2,6 @@
     <string name="app_name">tinkoffEducation</string>
     <string name="favourites">Популярные</string>
     <string name="featured">Избранное</string>
+    <string name="search">Поиск</string>
+    <string name="search_the_film">Поиск фильма</string>
 </resources>

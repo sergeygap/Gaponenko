@@ -18,11 +18,17 @@ class MainActivity : AppCompatActivity() {
         with(binding) {
             btnFavourite.setOnClickListener {
                 launchFragment(FavouriteFragment())
+                setTitle(getString(R.string.favourites))
             }
             btnFeatured.setOnClickListener {
                 launchFragment(FeaturedFragment())
+                setTitle(getString(R.string.featured))
             }
         }
+    }
+
+    private fun setTitle(title: String) {
+        binding.topAppBar.title = title
     }
 
     private fun launchFragment(fragment: Fragment) {
