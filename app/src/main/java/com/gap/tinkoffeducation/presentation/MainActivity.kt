@@ -1,4 +1,4 @@
-package com.gap.tinkoffeducation
+package com.gap.tinkoffeducation.presentation
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.gap.tinkoffeducation.R
 import com.gap.tinkoffeducation.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
