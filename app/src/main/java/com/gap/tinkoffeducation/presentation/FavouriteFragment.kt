@@ -58,6 +58,9 @@ class FavouriteFragment : Fragment() {
         viewModel.filmsLD.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
         viewModel.filmsStateLD.observe(viewLifecycleOwner) {
             if (!it) {
                 binding.rvFavourite.visibility = View.INVISIBLE

@@ -24,8 +24,14 @@ class FavouriteViewModel(application: Application) : AndroidViewModel(applicatio
     val filmsStateLD: LiveData<Boolean>
         get() = _filmsStateLD
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
     fun getListFilms() {
+
         viewModelScope.launch {
+            _isLoading.postValue(true)
             if (getListUseCase(page).isNotEmpty()) {
                 _filmsStateLD.postValue(true)
                 val loadedNewsList = filmsLD.value?.toMutableList()
@@ -39,8 +45,9 @@ class FavouriteViewModel(application: Application) : AndroidViewModel(applicatio
             } else {
                 _filmsStateLD.postValue(false)
             }
-
+            _isLoading.postValue(false)
         }
+
     }
 
     fun updateFilmsList() {
@@ -49,5 +56,8 @@ class FavouriteViewModel(application: Application) : AndroidViewModel(applicatio
         getListFilms()
     }
 
+    fun setLoadingState(isLoading: Boolean) {
+        _isLoading.value = isLoading
+    }
 
 }
