@@ -16,8 +16,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initiallyStateInternet()
-        setOnButtonClickListener()
+        if (initiallyStateInternet()) {
+            setOnButtonClickListener()
+        }
 
     }
 
@@ -48,6 +49,19 @@ class MainActivity : AppCompatActivity() {
             btnFavourite.visibility = View.VISIBLE
             llNoInternet.visibility = View.GONE
         }
+        launchInitialFragment()
+    }
+
+    private fun launchInitialFragment() {
+        val initialFragment = FavouriteFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.main_fragment_container,
+                initialFragment
+            )
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun setOnButtonClickListener() {

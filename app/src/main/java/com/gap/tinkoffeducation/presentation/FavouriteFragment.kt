@@ -35,6 +35,7 @@ class FavouriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         workWithAdapter()
         workWithViewModel()
+        workWithSwipeToRefresh()
     }
 
     private fun workWithAdapter() {
@@ -54,6 +55,13 @@ class FavouriteFragment : Fragment() {
         viewModel.getListFilms()
         viewModel.filmsLD.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+    }
+
+    private fun workWithSwipeToRefresh() {
+        binding.swipeToRefreshLayout.setOnRefreshListener {
+            viewModel.updateNewsList()
+            binding.swipeToRefreshLayout.isRefreshing = false
         }
     }
 

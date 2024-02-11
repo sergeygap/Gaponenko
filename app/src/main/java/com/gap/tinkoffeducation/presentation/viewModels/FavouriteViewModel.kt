@@ -1,14 +1,12 @@
 package com.gap.tinkoffeducation.presentation.viewModels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.gap.tinkoffeducation.data.repository.FilmsRepositoryImpl
 import com.gap.tinkoffeducation.domain.entity.Films
-import com.gap.tinkoffeducation.domain.usecases.GetFilmsDetails
 import com.gap.tinkoffeducation.domain.usecases.GetListFilms
 import kotlinx.coroutines.launch
 
@@ -36,7 +34,7 @@ class FavouriteViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun updateNewsList() {
-        page = 0
+        page = 1
         _filmsLD.value = emptyList()
         getListFilms()
     }

@@ -20,7 +20,7 @@ class Mapper {
     }
 
     private fun mapGenres(list: List<GenreDto>): String {
-        return list.first().genre.replaceFirstChar {it.uppercase()}
+        return list.first().genre.replaceFirstChar {it.uppercase()}.trimEnd()
     }
     private fun mapCountries(list: List<CountryDto>): String {
         return list.joinToString(", ") { it.country }
