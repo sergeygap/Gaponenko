@@ -3,6 +3,7 @@ package com.gap.tinkoffeducation
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.gap.tinkoffeducation.databinding.ActivityMainBinding
@@ -13,7 +14,39 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        initiallyStateInternet()
         setOnButtonClickListener()
+
+    }
+
+    private fun initiallyStateInternet(): Boolean {
+        val state = isNetworkAvailable()
+        if (!state) {
+            noInternetOnUser()
+        } else {
+            yesInternetOnUser()
+        }
+        return state
+    }
+
+    private fun noInternetOnUser() {
+        with(binding) {
+            btnFeatured.visibility = View.INVISIBLE
+            btnFavourite.visibility = View.INVISIBLE
+            llNoInternet.visibility = View.VISIBLE
+            btnRetryInternet.setOnClickListener {
+                initiallyStateInternet()
+            }
+        }
+    }
+
+    private fun yesInternetOnUser() {
+        with(binding) {
+            btnFeatured.visibility = View.VISIBLE
+            btnFavourite.visibility = View.VISIBLE
+            llNoInternet.visibility = View.GONE
+        }
     }
 
     private fun setOnButtonClickListener() {
@@ -45,9 +78,9 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    private fun isNetworkAvailable(context: Context): Boolean {
+    private fun isNetworkAvailable(): Boolean {
         val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
     }
