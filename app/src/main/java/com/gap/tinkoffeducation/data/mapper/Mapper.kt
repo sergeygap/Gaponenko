@@ -11,19 +11,22 @@ class Mapper {
         return Films(
             dto.id,
             dto.name,
-            dto.year,
+            mapYear(dto.year),
             dto.poster,
-            mapGenresAndCountries(dto.genres),
-            mapGenresAndCountries(dto.countries),
+            mapGenres(dto.genres),
+            mapCountries(dto.countries),
             dto.description
         )
     }
 
-    private fun mapGenresAndCountries(list: List<GenreDto>): String {
-        return list.joinToString(", ") { it.genre }
+    private fun mapGenres(list: List<GenreDto>): String {
+        return list.first().genre.replaceFirstChar {it.uppercase()}
     }
-    private fun mapGenresAndCountries(list: List<CountryDto>): String {
+    private fun mapCountries(list: List<CountryDto>): String {
         return list.joinToString(", ") { it.country }
+    }
+    private fun mapYear(year: Int): String {
+        return "($year)"
     }
 
 }
