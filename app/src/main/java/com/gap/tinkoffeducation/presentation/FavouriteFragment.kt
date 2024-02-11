@@ -1,13 +1,11 @@
 package com.gap.tinkoffeducation.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.gap.tinkoffeducation.R
+import androidx.fragment.app.Fragment
 import com.gap.tinkoffeducation.databinding.FragmentFavouriteBinding
-import com.gap.tinkoffeducation.databinding.FragmentFeaturedBinding
 
 
 class FavouriteFragment : Fragment() {
