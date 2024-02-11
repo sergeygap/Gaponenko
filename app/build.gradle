@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.gap.tinkoffeducation'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.gap.tinkoffeducation"
