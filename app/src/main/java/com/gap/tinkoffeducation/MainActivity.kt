@@ -1,5 +1,7 @@
 package com.gap.tinkoffeducation
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setTitle(title: String) {
         binding.topAppBar.title = title
     }
@@ -40,6 +43,13 @@ class MainActivity : AppCompatActivity() {
             )
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 
 }
