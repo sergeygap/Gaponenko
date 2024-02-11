@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <androidx.fragment.app.FragmentContainerView
+        android:name="com.gap.tinkoffeducation.FavouriteFragment"
+        android:id="@+id/main_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <Button
         android:id="@+id/btn_favourite"
         style="@style/Widget.Material3.Button.ElevatedButton"
