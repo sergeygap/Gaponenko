@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bg_btn_favourites">#DEEFFF</color>
     <color name="main">#0094FF</color>
+    <color name="grey_text_color">#666666</color>
+    <color name="background_on_arrow">#1AFFFFFF</color>
 </resources>

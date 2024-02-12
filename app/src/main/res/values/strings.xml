@@ -2,4 +2,18 @@
     <string name="app_name">tinkoffEducation</string>
     <string name="favourites">Популярные</string>
     <string name="featured">Избранное</string>
+    <string name="search">Поиск</string>
+    <string name="search_the_film">Поиск фильма</string>
+    <string name="no_internet_text">Произошла ошибка при загрузке данных, проверьте подключение к сети</string>
+    <string name="no_internet_description">нет интернета не устройстве</string>
+    <string name="retry">Повторить</string>
+    <string name="poster_on_film_card">poster on film card</string>
+    <string name="favourite_film">favourite film</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="counties">Страны:</string>
+    <string name="genres">Жанры:</string>
+    <string name="poster_about_film">poster about film</string>
+    <string name="back_button">Кнопка назад на главные экран</string>
+    <string name="is_empty_now">Здесь пока пусто</string>
+    <string name="hint_on_empty_database">Чтобы добавлять фильмы в избранное, удерживайте карточку с фильмом</string>
 </resources>
