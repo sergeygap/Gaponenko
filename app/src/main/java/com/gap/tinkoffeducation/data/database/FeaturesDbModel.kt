@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "features")
 data class FeaturesDbModel(
     @PrimaryKey
-    val id: Long,
+    val id: Int,
     val name: String,
     val year: String,
     val poster: String,

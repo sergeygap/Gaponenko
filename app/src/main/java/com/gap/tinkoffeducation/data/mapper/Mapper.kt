@@ -1,8 +1,10 @@
 package com.gap.tinkoffeducation.data.mapper
 
+import com.gap.tinkoffeducation.data.database.FeaturesDbModel
 import com.gap.tinkoffeducation.data.network.model.CountryDto
 import com.gap.tinkoffeducation.data.network.model.FilmsDto
 import com.gap.tinkoffeducation.data.network.model.GenreDto
+import com.gap.tinkoffeducation.domain.entity.Features
 import com.gap.tinkoffeducation.domain.entity.Films
 
 class Mapper {
@@ -27,6 +29,18 @@ class Mapper {
     }
     private fun mapYear(year: Int): String {
         return "($year)"
+    }
+
+
+    fun mapFeaturesDbModelToFavourites(db: FeaturesDbModel): Features {
+        with(db){
+            return Features(id, name, year, poster, genres, countries, description)
+        }
+    }
+    fun mapEntityDbModelToDbModel(entity: Features): FeaturesDbModel {
+        with(entity){
+            return FeaturesDbModel(id, name, year, poster, genres, countries, description)
+        }
     }
 
 }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class FilmsDto(
     @SerializedName("filmId")
-    val id: Long? = null,
+    val id: Int? = null,
     @SerializedName("nameRu")
     val name: String,
     val year: Int,

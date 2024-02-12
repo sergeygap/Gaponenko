@@ -6,12 +6,15 @@ import com.gap.tinkoffeducation.data.network.ApiFactory
 import com.gap.tinkoffeducation.domain.FilmsRepository
 import com.gap.tinkoffeducation.domain.entity.Films
 import android.util.Log
+import com.gap.tinkoffeducation.data.database.AppDatabase
+import com.gap.tinkoffeducation.domain.entity.Features
 import retrofit2.HttpException
 import java.io.IOException
 
 class FilmsRepositoryImpl(
     application: Application
 ) : FilmsRepository {
+    private val featuresDao = AppDatabase.getInstance(application).featuresDao()
     private val apiService = ApiFactory.apiService
     private val mapper = Mapper()
 
@@ -63,6 +66,24 @@ class FilmsRepositoryImpl(
         }
 
         return emptyList()
+    }
+
+    override suspend fun getListFeatures(): List<Features> {
+        return featuresDao.getListFeatures().map {
+            mapper.mapFeaturesDbModelToFavourites(it)
+        }
+    }
+
+    override suspend fun getFeaturesById(id: Int): Features {
+        return mapper.mapFeaturesDbModelToFavourites(featuresDao.getFeaturesById(id))
+    }
+
+    override suspend fun addFeatures(features: Features) {
+        return featuresDao.addFeatures(mapper.mapEntityDbModelToDbModel(features))
+    }
+
+    override suspend fun deleteFeatures(features: Features) {
+        return featuresDao.deleteFeatures(mapper.mapEntityDbModelToDbModel(features))
     }
 
 

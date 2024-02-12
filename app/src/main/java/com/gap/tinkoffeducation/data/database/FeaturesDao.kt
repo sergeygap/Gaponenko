@@ -11,7 +11,7 @@ interface FeaturesDao {
     @Query("SELECT * FROM features")
     suspend fun getListFeatures(): List<FeaturesDbModel>
     @Query("SELECT EXISTS (SELECT 1 FROM features WHERE id = :id) != 0")
-    suspend fun getFeaturesById(id: Long): FeaturesDbModel
+    suspend fun getFeaturesById(id: Int): FeaturesDbModel
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addFeatures(features: FeaturesDbModel)
