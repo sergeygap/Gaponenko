@@ -10,7 +10,7 @@ import androidx.room.Query
 interface FeaturesDao {
     @Query("SELECT * FROM features")
     suspend fun getListFeatures(): List<FeaturesDbModel>
-    @Query("SELECT EXISTS (SELECT 1 FROM features WHERE id = :id) != 0")
+    @Query("SELECT * FROM features WHERE id = :id")
     suspend fun getFeaturesById(id: Int): FeaturesDbModel
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,4 +21,8 @@ interface FeaturesDao {
 
     @Query("DELETE FROM features")
     suspend fun deleteAllFeatures()
+
+    @Query("SELECT COUNT(*) FROM features WHERE id = :id")
+    suspend fun checkId(id: Int): Boolean
+
 }

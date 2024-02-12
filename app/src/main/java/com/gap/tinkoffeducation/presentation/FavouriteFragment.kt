@@ -55,7 +55,7 @@ class FavouriteFragment : Fragment() {
 
     private fun workWithAdapter() {
         binding.rvFavourite.adapter = adapter
-        adapter.onFilmsClickListener = object :FavouriteAdapter.OnFilmsClickListener {
+        adapter.onFilmsClickListener = object : FavouriteAdapter.OnFilmsClickListener {
             override fun onFilmsClick(id: Int) {
                 launchFilmsDetailsFragment(id)
             }
@@ -66,6 +66,7 @@ class FavouriteFragment : Fragment() {
             }
         }
     }
+
     private fun workWithViewModel() {
         viewModel.getListFilms()
         viewModel.filmsLD.observe(viewLifecycleOwner) {

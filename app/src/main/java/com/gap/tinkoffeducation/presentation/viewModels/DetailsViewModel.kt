@@ -43,9 +43,6 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun progressState(state: Boolean) {
-        _isLoading.postValue(state)
-    }
 
     companion object {
         private const val ERROR_ID = -2024

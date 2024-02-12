@@ -7,6 +7,6 @@ class DeleteFeatures(
     private val repository: FilmsRepository
 ) {
     suspend operator fun invoke(features: Features) {
-        return repository.deleteFeatures(features)
+       repository.deleteFeatures(features)
     }
 }

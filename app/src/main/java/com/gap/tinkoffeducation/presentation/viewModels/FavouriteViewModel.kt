@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.gap.tinkoffeducation.data.repository.FilmsRepositoryImpl
 import com.gap.tinkoffeducation.domain.entity.Films
+import com.gap.tinkoffeducation.domain.usecases.CheckId
 import com.gap.tinkoffeducation.domain.usecases.GetListFilms
 import kotlinx.coroutines.launch
 
@@ -55,6 +56,7 @@ class FavouriteViewModel(application: Application) : AndroidViewModel(applicatio
         _filmsLD.value = emptyList()
         getListFilms()
     }
+
 
 
 

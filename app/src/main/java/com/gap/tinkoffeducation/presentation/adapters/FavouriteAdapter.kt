@@ -45,8 +45,10 @@ class FavouriteAdapter(private val context: Context) :
     ) {
         with(holder.binding) {
             with(film) {
+
+
                 tvTitle.text = name
-                tvType.text = genres.split(",")[0].replaceFirstChar {it.uppercase()}
+                tvType.text = genres.split(",")[0].replaceFirstChar { it.uppercase() }
                     .trimEnd()
                 tvYear.text = year
                 Glide.with(context)
@@ -55,16 +57,22 @@ class FavouriteAdapter(private val context: Context) :
                     .into(ivPoster)
                 root.setOnClickListener {
                     onFilmsClickListener?.let {
-                        it.onFilmsClick(id ?: 0)
+                        it.onFilmsClick(id)
                     }
+                }
+                root.setOnLongClickListener {
+
+                    true
                 }
             }
         }
     }
 
+
     interface OnFilmsClickListener {
         fun onFilmsClick(id: Int)
     }
+
 
     interface OnReachEndListener {
         fun onReachEnd()

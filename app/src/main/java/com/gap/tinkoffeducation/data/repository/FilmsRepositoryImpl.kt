@@ -1,13 +1,13 @@
 package com.gap.tinkoffeducation.data.repository
 
 import android.app.Application
+import android.util.Log
+import com.gap.tinkoffeducation.data.database.AppDatabase
 import com.gap.tinkoffeducation.data.mapper.Mapper
 import com.gap.tinkoffeducation.data.network.ApiFactory
 import com.gap.tinkoffeducation.domain.FilmsRepository
-import com.gap.tinkoffeducation.domain.entity.Films
-import android.util.Log
-import com.gap.tinkoffeducation.data.database.AppDatabase
 import com.gap.tinkoffeducation.domain.entity.Features
+import com.gap.tinkoffeducation.domain.entity.Films
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -79,16 +79,40 @@ class FilmsRepositoryImpl(
     }
 
     override suspend fun addFeatures(features: Features) {
-        return featuresDao.addFeatures(mapper.mapEntityDbModelToDbModel(features))
+        if (features.description == null) {
+            Log.d(TAG, "addFeatures: description == null")
+            val film = getFilmsDetails(features.id)
+            if (film.id != ERROR_ID) {
+                featuresDao.addFeatures(
+                    mapper.mapEntityDbModelToDbModel(
+                        Features(
+                            features.id,
+                            features.name,
+                            features.year,
+                            features.poster,
+                            features.genres,
+                            features.countries,
+                            film.description
+                        )
+                    )
+                )
+            }
+        } else
+            featuresDao.addFeatures(mapper.mapEntityDbModelToDbModel(features))
     }
 
     override suspend fun deleteFeatures(features: Features) {
-        return featuresDao.deleteFeatures(mapper.mapEntityDbModelToDbModel(features))
+        featuresDao.deleteFeatures(mapper.mapEntityDbModelToDbModel(features))
+    }
+
+    override suspend fun checkId(id: Int): Boolean {
+        return featuresDao.checkId(id)
     }
 
 
     companion object {
         private const val ERROR_ID = -2024
+        const val TAG = "addFilm"
     }
 }
 

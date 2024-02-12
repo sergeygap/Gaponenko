@@ -6,7 +6,7 @@ import com.gap.tinkoffeducation.domain.entity.Features
 class GetFeaturesById(
     private val repository: FilmsRepository
 ) {
-    suspend operator fun invoke(id: Long): Features {
+    suspend operator fun invoke(id: Int): Features {
         return repository.getFeaturesById(id)
     }
 }
