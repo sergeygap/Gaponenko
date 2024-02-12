@@ -19,12 +19,36 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
     val filmLD: LiveData<Films>
         get() = _filmLD
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
+    private val _filmsStateLD = MutableLiveData<Boolean>()
+
+    val filmsStateLD: LiveData<Boolean>
+        get() = _filmsStateLD
+
     fun loadData(id: Int) {
         viewModelScope.launch {
-            val film = getFilmsDetails(id)
-            _filmLD.postValue(film)
-            Log.d("NewsDetailsViewModel", film.name)
+            val response  = getFilmsDetails(id)
+            if (response.id != ERROR_ID && response.name != "") {
+                _filmsStateLD.postValue(true)
+                _isLoading.postValue(true)
+                val film = getFilmsDetails(id)
+                _filmLD.postValue(film)
+                _isLoading.postValue(false)
+            } else {
+                _filmsStateLD.postValue(false)
+            }
         }
+    }
+
+    fun progressState(state: Boolean) {
+        _isLoading.postValue(state)
+    }
+
+    companion object {
+        private const val ERROR_ID = -2024
     }
 
 

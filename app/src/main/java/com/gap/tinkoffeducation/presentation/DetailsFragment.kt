@@ -1,19 +1,12 @@
 package com.gap.tinkoffeducation.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toolbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 import com.gap.tinkoffeducation.R
 import com.gap.tinkoffeducation.databinding.FragmentDetailsBinding
 import com.gap.tinkoffeducation.presentation.viewModels.DetailsViewModel
@@ -31,10 +24,12 @@ class DetailsFragment : Fragment() {
     private val viewModel: DetailsViewModel by lazy {
         ViewModelProvider(this)[DetailsViewModel::class.java]
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         id = requireArguments().getInt(ID)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,16 +49,44 @@ class DetailsFragment : Fragment() {
         binding.ivbBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
+        binding.btnRetryInternet.setOnClickListener {
+            viewModel.loadData(id)
+        }
     }
+
     private fun workWithViewModel() {
         viewModel.loadData(id)
         viewModel.filmLD.observe(viewLifecycleOwner) {
+
             with(binding) {
                 Picasso.get().load(it.poster).into(imPoster)
                 tvCountries.text = it.countries
                 tvGenres.text = it.genres.replaceFirstChar { it.uppercase() }
                 tvDescription.text = it.description
                 tvName.text = it.name
+
+            }
+        }
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+        viewModel.filmsStateLD.observe(viewLifecycleOwner) { it ->
+            with(binding) {
+                val listViews = listOf(
+                    tvName, imPoster, tvDescription,
+                    tvGenresMain, tvGenres, tvCountriesMain, tvCountries
+                )
+                if (!it) {
+                    llNoInternet.visibility = View.VISIBLE
+                    listViews.forEach {
+                        it.visibility = View.INVISIBLE
+                    }
+                } else {
+                    llNoInternet.visibility = View.GONE
+                    listViews.forEach {
+                        it.visibility = View.VISIBLE
+                    }
+                }
             }
         }
     }
@@ -79,8 +102,6 @@ class DetailsFragment : Fragment() {
             requireActivity().findViewById<AppBarLayout>(R.id.appBarLayout)
         toolbar.visibility = View.GONE
     }
-
-
 
 
     override fun onDestroyView() {

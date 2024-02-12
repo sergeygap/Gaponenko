@@ -39,6 +39,18 @@ class FavouriteFragment : Fragment() {
         workWithAdapter()
         workWithViewModel()
         workWithSwipeToRefresh()
+        workWithUi()
+    }
+
+    private fun workWithUi() {
+        binding.btnRetryInternet.setOnClickListener {
+            clickCounter++
+            if (clickCounter == 3) {
+                viewModel.updateFilmsList()
+            } else {
+                viewModel.getListFilms()
+            }
+        }
     }
 
     private fun workWithAdapter() {
@@ -72,16 +84,9 @@ class FavouriteFragment : Fragment() {
                 binding.rvFavourite.visibility = View.VISIBLE
                 binding.llNoInternet.visibility = View.GONE
                 binding.swipeToRefreshLayout.visibility = View.VISIBLE
-                binding.btnRetryInternet.setOnClickListener {
-                    clickCounter++
-                    if (clickCounter == 3) {
-                        viewModel.updateFilmsList()
-                    } else {
-                        viewModel.getListFilms()
-                    }
-                }
             }
         }
+
     }
 
     private fun workWithSwipeToRefresh() {

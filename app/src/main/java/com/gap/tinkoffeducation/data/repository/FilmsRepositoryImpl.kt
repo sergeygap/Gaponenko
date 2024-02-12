@@ -37,7 +37,7 @@ class FilmsRepositoryImpl(
             Log.e("FilmsRepository", "Error: ${e.message}", e)
         }
 
-        return Films(null, "", "", "", "", "", "")
+        return Films(ERROR_ID, "", "", "", "", "", "")
     }
 
     override suspend fun getListFilms(page: Int): List<Films> {
@@ -63,6 +63,11 @@ class FilmsRepositoryImpl(
         }
 
         return emptyList()
+    }
+
+
+    companion object {
+        private const val ERROR_ID = -2024
     }
 }
 
