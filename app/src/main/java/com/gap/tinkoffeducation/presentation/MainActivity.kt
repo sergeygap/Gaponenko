@@ -2,13 +2,10 @@ package com.gap.tinkoffeducation.presentation
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.gap.tinkoffeducation.R
 import com.gap.tinkoffeducation.databinding.ActivityMainBinding
@@ -24,14 +21,6 @@ class MainActivity : AppCompatActivity() {
         if (initiallyStateInternet()) {
             setOnButtonClickListener()
         }
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.setDecorFitsSystemWindows(false)
-        } else {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        }
-
     }
 
     private fun initiallyStateInternet(): Boolean {
