@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.gap.tinkoffeducation.R
 import com.gap.tinkoffeducation.databinding.FragmentFavouriteBinding
 import com.gap.tinkoffeducation.presentation.adapters.FavouriteAdapter
 import com.gap.tinkoffeducation.presentation.viewModels.FavouriteViewModel
@@ -42,9 +43,9 @@ class FavouriteFragment : Fragment() {
 
     private fun workWithAdapter() {
         binding.rvFavourite.adapter = adapter
-        adapter.onNewsClickListener = object :FavouriteAdapter.OnNewsClickListener {
-            override fun onNewsClick(id: Int) {
-                //launchNewsDetailsFragment(id)
+        adapter.onFilmsClickListener = object :FavouriteAdapter.OnFilmsClickListener {
+            override fun onFilmsClick(id: Int) {
+                launchFilmsDetailsFragment(id)
             }
         }
         adapter.onReachEndListener = object : FavouriteAdapter.OnReachEndListener {
@@ -88,6 +89,13 @@ class FavouriteFragment : Fragment() {
             viewModel.updateFilmsList()
             binding.swipeToRefreshLayout.isRefreshing = false
         }
+    }
+
+    private fun launchFilmsDetailsFragment(id: Int) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fragment_container, DetailsFragment.newInstance(id))
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onDestroyView() {

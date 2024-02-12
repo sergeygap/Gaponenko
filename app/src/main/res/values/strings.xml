@@ -9,4 +9,9 @@
     <string name="retry">Повторить</string>
     <string name="poster_on_film_card">poster on film card</string>
     <string name="favourite_film">favourite film</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="counties">Страны:</string>
+    <string name="genres">Жанры:</string>
+    <string name="poster_about_film">poster about film</string>
+    <string name="back_button">Кнопка назад на главные экран</string>
 </resources>

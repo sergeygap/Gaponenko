@@ -34,10 +34,10 @@ class FavouriteViewModel(application: Application) : AndroidViewModel(applicatio
             _isLoading.postValue(true)
             if (getListUseCase(page).isNotEmpty()) {
                 _filmsStateLD.postValue(true)
-                val loadedNewsList = filmsLD.value?.toMutableList()
-                if (loadedNewsList != null) {
-                    loadedNewsList.addAll(getListUseCase(page))
-                    _filmsLD.postValue(loadedNewsList)
+                val loadedFilmsList = filmsLD.value?.toMutableList()
+                if (loadedFilmsList != null) {
+                    loadedFilmsList.addAll(getListUseCase(page))
+                    _filmsLD.postValue(loadedFilmsList)
                 } else {
                     _filmsLD.postValue(getListUseCase(page))
                 }
@@ -56,8 +56,6 @@ class FavouriteViewModel(application: Application) : AndroidViewModel(applicatio
         getListFilms()
     }
 
-    fun setLoadingState(isLoading: Boolean) {
-        _isLoading.value = isLoading
-    }
+
 
 }

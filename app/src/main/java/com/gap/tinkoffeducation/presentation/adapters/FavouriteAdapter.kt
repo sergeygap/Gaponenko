@@ -9,12 +9,11 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.gap.tinkoffeducation.databinding.ItemFilmCardBinding
 import com.gap.tinkoffeducation.domain.entity.Films
-import com.squareup.picasso.Picasso
 
 class FavouriteAdapter(private val context: Context) :
     ListAdapter<Films, FilmsViewHolder>(FilmsDiffCallback) {
 
-    var onNewsClickListener: OnNewsClickListener? = null
+    var onFilmsClickListener: OnFilmsClickListener? = null
     var onReachEndListener: OnReachEndListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmsViewHolder {
@@ -27,8 +26,8 @@ class FavouriteAdapter(private val context: Context) :
     }
 
     override fun onBindViewHolder(holder: FilmsViewHolder, position: Int) {
-        val news = getItem(position)
-        setUpItem(holder, news)
+        val film = getItem(position)
+        setUpItem(holder, film)
         pagination(position)
     }
 
@@ -47,24 +46,24 @@ class FavouriteAdapter(private val context: Context) :
         with(holder.binding) {
             with(film) {
                 tvTitle.text = name
-                tvType.text = genres
+                tvType.text = genres.split(",")[0].replaceFirstChar {it.uppercase()}
+                    .trimEnd()
                 tvYear.text = year
                 Glide.with(context)
                     .load(poster)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(24)))
                     .into(ivPoster)
-//                Picasso.get().load(poster).into(ivPoster)
                 root.setOnClickListener {
-                    onNewsClickListener?.let {
-                        it.onNewsClick(id ?: 0)
+                    onFilmsClickListener?.let {
+                        it.onFilmsClick(id ?: 0)
                     }
                 }
             }
         }
     }
 
-    interface OnNewsClickListener {
-        fun onNewsClick(id: Int)
+    interface OnFilmsClickListener {
+        fun onFilmsClick(id: Int)
     }
 
     interface OnReachEndListener {
