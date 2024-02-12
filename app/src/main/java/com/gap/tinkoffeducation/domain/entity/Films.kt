@@ -1,7 +1,7 @@
 package com.gap.tinkoffeducation.domain.entity
 
 data class Films(
-    val id: Int?,
+    val id: Long?,
     val name: String,
     val year: String,
     val poster: String,
